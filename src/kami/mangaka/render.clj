@@ -32,8 +32,28 @@
   base-negative / aspect-by-layout."
   "mangaka_default_anchors.edn")
 
+(defn- unblob
+  "Undo scripts/edn-datomize.bb's pr-str blob encoding for non-scalar values."
+  [v]
+  (if (string? v)
+    (try (let [parsed (edn/read-string v)] (if (coll? parsed) parsed v))
+         (catch Exception _ v))
+    v))
+
+(defn- reconstitute-entity
+  "Turn a Datomic/Datascript tx-data vector `[{:db/id -1 :ns/key val ...}]`
+  (as produced by scripts/edn-datomize.bb) back into the bare flat map the
+  loader expects: strip :db/id, drop the file-level namespace off each key,
+  and un-pr-str any blobbed non-scalar values."
+  [tx-data]
+  (into {} (map (fn [[k v]] [(keyword (name k)) (unblob v)]))
+        (dissoc (first tx-data) :db/id)))
+
 (defn- read-edn-reader [rdr]
-  (with-open [r rdr] (edn/read (java.io.PushbackReader. r))))
+  (let [data (with-open [r rdr] (edn/read (java.io.PushbackReader. r)))]
+    (if (and (vector? data) (map? (first data)) (contains? (first data) :db/id))
+      (reconstitute-entity data)
+      data)))
 
 (defn merge-anchors
   "Merge generic mangaka defaults UNDER a work's anchors. Work wins at the top
