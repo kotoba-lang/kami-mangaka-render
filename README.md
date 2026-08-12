@@ -57,11 +57,12 @@ Verified working standalone in this repo, with no `:local/root` deps on
 sibling monorepo directories — nothing to fix:
 
 ```bash
-bb test              # pure: compose / take-budget / framing / dims / injected-mappers
+nbb scripts/run-task.cljs test   # pure: compose / take-budget / framing / dims / injected-mappers
 # or directly:
 clojure -M:test
 ```
 
-Both ran clean out of the box (`bb test` -> 8 tests, 37 assertions, 0
-failures, 0 errors) — no GPU, no DB, no network required. `render!` only
+Both ran clean out of the box (8 tests, 37 assertions, 0 failures, 0 errors —
+re-measured 2026-08-13 through the nbb task registry, which replaced `bb test`
+when babashka was retired by ADR-2607173000) — no GPU, no DB, no network required. `render!` only
 touches the network when actually called.
