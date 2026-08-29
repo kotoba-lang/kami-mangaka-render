@@ -17,7 +17,7 @@
   (:require [clojure.edn :as edn]
             [clojure.java.io :as io]
             [clojure.string :as str]
-            [clojure.data.json :as json])
+            [json.data-json :as json])
   (:import [java.net URI]
            [java.util Base64]
            [java.net.http HttpClient HttpClient$Version HttpRequest HttpRequest$BodyPublishers
