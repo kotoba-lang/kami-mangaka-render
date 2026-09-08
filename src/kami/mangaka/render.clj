@@ -16,7 +16,7 @@
        ComfyUI IP-Adapter path."
   (:require [clojure.edn :as edn]
             [clojure.java.io :as io]
-            [clojure.string :as str]
+            [kotoba.lang.text :as str]
             [json.data-json :as json])
   (:import [java.net URI]
            [java.util Base64]
@@ -93,7 +93,7 @@
 (defn framing
   "camera string → 1-2 booru framing tags. Generic film grammar (no world)."
   [camera]
-  (let [c (str/lower-case (str camera))
+  (let [c (str/lower (str camera))
         seg (str/trim (first (str/split c #"/")))
         shot (cond
                (str/includes? seg "extreme close") "extreme close-up"
