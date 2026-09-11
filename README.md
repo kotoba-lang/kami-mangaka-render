@@ -57,7 +57,7 @@ Verified working standalone in this repo, with no `:local/root` deps on
 sibling monorepo directories — nothing to fix:
 
 ```bash
-nbb scripts/run-task.cljs test   # pure: compose / take-budget / framing / dims / injected-mappers
+nbb scripts/run-task.cljk test   # pure: compose / take-budget / framing / dims / injected-mappers
 # or directly:
 clojure -M:test
 ```
