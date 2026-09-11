@@ -57,12 +57,12 @@ Verified working standalone in this repo, with no `:local/root` deps on
 sibling monorepo directories — nothing to fix:
 
 ```bash
-nbb scripts/run-task.cljk test   # pure: compose / take-budget / framing / dims / injected-mappers
+kbb --backend sci scripts/run-task.cljk test   # pure: compose / take-budget / framing / dims / injected-mappers
 # or directly:
-clojure -M:test
+kbb -M:test
 ```
 
 Both ran clean out of the box (8 tests, 37 assertions, 0 failures, 0 errors —
-re-measured 2026-08-13 through the nbb task registry, which replaced `bb test`
+re-measured 2026-08-13 through the nbb task registry, which replaced `kbb -M:test`
 when babashka was retired by ADR-2607173000) — no GPU, no DB, no network required. `render!` only
 touches the network when actually called.
