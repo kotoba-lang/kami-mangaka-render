@@ -15,7 +15,7 @@
        noise. We render tag-only; `:refs` are carried as metadata for a future
        ComfyUI IP-Adapter path."
   (:require [clojure.edn :as edn]
-            [clojure.java.io :as io]
+            [kotoba.io :as io]
             [kotoba.lang.text :as str]
             [json.data-json :as json])
   (:import [java.net URI]
